@@ -354,6 +354,12 @@ nvmpictx* nvmpi_create_encoder(nvEncParam* param)
 
 	TEST_ERROR(ret < 0, "Could not set output plane format", ret);
 
+	//The following values are supported for the poc-type property:
+	//0: POC explicitly specified in each slice header (the default)
+	//2: Decoding/coding order and display order are the same
+	ret = ctx->enc->setPocType(2);
+	TEST_ERROR(ret < 0, "Error in setting Picture Order Control type", ret);
+
 	ret = ctx->enc->setBitrate(ctx->bitrate);
 	TEST_ERROR(ret < 0, "Could not set encoder bitrate", ret);
 
